@@ -1,6 +1,5 @@
 package dev.felipe.restaurante.domain.entity;
 
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Produtos {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
