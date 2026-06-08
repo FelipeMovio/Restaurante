@@ -1,4 +1,4 @@
-package dev.felipe.restaurante.domain;
+package dev.felipe.restaurante.domain.enums;
 
 public enum StatusItemPedido {
     PENDENTE,
