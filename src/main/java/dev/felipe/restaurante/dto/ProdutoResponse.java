@@ -16,8 +16,15 @@ public record ProdutoResponse(
         String categoriaNome,
         LocalDateTime criadoEm
 ) {
-    public ProdutoResponse (Produto produto){
-        this(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(),produto.getDisponivel(), produto.getTempoPreparoMinutos(),
-                produto.getCategoria().getId(),produto.getCategoria().getNome(),produto.getCriadoEm());
+    public static ProdutoResponse fromEntity(Produto produto){
+        return new ProdutoResponse(produto.getId(),
+                produto.getNome(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getDisponivel(),
+                produto.getTempoPreparoMinutos(),
+                produto.getCategoria().getId(),
+                produto.getCategoria().getNome(),
+                produto.getCriadoEm());
     }
 }
