@@ -6,6 +6,7 @@ import dev.felipe.restaurante.domain.enums.StatusMesa;
 import dev.felipe.restaurante.domain.enums.StatusPedido;
 import dev.felipe.restaurante.dto.PedidoRequest;
 import dev.felipe.restaurante.dto.PedidoResponse;
+import dev.felipe.restaurante.exception.RegraNegocioException;
 import dev.felipe.restaurante.repository.MesaRepository;
 import dev.felipe.restaurante.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,10 @@ public class PedidoService {
 
     public PedidoResponse abrirPedido(PedidoRequest pedidoRequest){
         Mesa mesa = mesaRepository.findById(pedidoRequest.mesaId())
-                .orElseThrow(() -> new RuntimeException("mesa nao encontrada"));
+                .orElseThrow(() -> new RegraNegocioException("mesa nao encontrada"));
 
         if (mesa.getStatus() != StatusMesa.LIVRE){
-            throw new RuntimeException("Mesa off");
+            throw new RegraNegocioException("Mesa off");
         }
 
         Pedido pedido = new Pedido();
@@ -48,7 +49,7 @@ public class PedidoService {
 
     public PedidoResponse buscarPorId(Long id){
         Pedido pedido = pedidoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("pedido nao encontrado"));
+                .orElseThrow(() -> new RegraNegocioException("pedido nao encontrado"));
 
         return PedidoResponse.fromEntity(pedido);
     }
