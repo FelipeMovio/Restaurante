@@ -4,6 +4,7 @@ import dev.felipe.restaurante.domain.entity.CategoriaProduto;
 import dev.felipe.restaurante.domain.entity.Produto;
 import dev.felipe.restaurante.dto.ProdutoRequest;
 import dev.felipe.restaurante.dto.ProdutoResponse;
+import dev.felipe.restaurante.exception.RegraNegocioException;
 import dev.felipe.restaurante.repository.CategoriaProdutoRepository;
 import dev.felipe.restaurante.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,12 +59,12 @@ public class ProdutoService {
 
     private Produto buscarProdutoPorId(Long id){
         return produtoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto nao encontrado "));
+                .orElseThrow(() -> new RegraNegocioException("Produto nao encontrado "));
     }
 
     private CategoriaProduto buscarCategoriaPorId(Long id){
         return categoriaProdutoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CategoriaProduto nao encontrado"));
+                .orElseThrow(() -> new RegraNegocioException("CategoriaProduto nao encontrado"));
     }
 
 }
