@@ -94,7 +94,7 @@ public class PedidoService {
         return PedidoItemResponse.fromEntity(itemSalvo);
     }
 
-    public List<PedidoItemResponse> lisatrItens(Long pedidoId){
+    public List<PedidoItemResponse> listarItens(Long pedidoId){
         buscarPedidoPorId(pedidoId);
 
         return pedidoItemRepository.findByPedidoId(pedidoId)

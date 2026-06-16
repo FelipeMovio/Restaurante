@@ -1,5 +1,7 @@
 package dev.felipe.restaurante.controller;
 
+import dev.felipe.restaurante.dto.PedidoItemRequest;
+import dev.felipe.restaurante.dto.PedidoItemResponse;
 import dev.felipe.restaurante.dto.PedidoRequest;
 import dev.felipe.restaurante.dto.PedidoResponse;
 import dev.felipe.restaurante.service.PedidoService;
@@ -8,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -32,4 +36,14 @@ public class PedidoController {
         return pedidoService.buscarPorId(id);
     }
 
+    @PostMapping("/{pedidoId}/itens")
+    @ResponseStatus(HttpStatus.CREATED)
+    public PedidoItemResponse adicionarItem( @PathVariable Long pedidoId, @RequestBody PedidoItemRequest request){
+        return pedidoService.addItem(pedidoId,request);
+    }
+
+    @GetMapping("/{pedidoId}/itens")
+    public List<PedidoItemResponse> listarItens(@PathVariable Long pedidoID){
+        return pedidoService.listarItens(pedidoID);
+    }
 }
