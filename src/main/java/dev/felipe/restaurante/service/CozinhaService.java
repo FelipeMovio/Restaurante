@@ -55,4 +55,16 @@ public class CozinhaService {
         PedidoItem salvo = pedidoItemRepository.save(item);
         return CozinhaItemResponse.fromEntity(salvo);
     }
+
+    public CozinhaItemResponse entregarItem(Long itemId){
+        PedidoItem item = pedidoItemRepository.findById(itemId)
+                .orElseThrow(() -> new RegraNegocioException("nao encontrado"));
+        if (item.getStatus() != StatusItemPedido.PRONTO){
+            throw new RegraNegocioException("somentes itens prontos podem ser entregues");
+        }
+        item.setStatus(StatusItemPedido.ENTREGUE);
+
+        PedidoItem salvo = pedidoItemRepository.save(item);
+        return CozinhaItemResponse.fromEntity(salvo);
+    }
 }
