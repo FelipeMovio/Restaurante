@@ -5,6 +5,7 @@ import dev.felipe.restaurante.domain.enums.StatusItemPedido;
 import dev.felipe.restaurante.repository.PedidoItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Component
 @RequiredArgsConstructor
 public class CozinhaWorker {
 
@@ -23,7 +25,7 @@ public class CozinhaWorker {
     @Scheduled(fixedRate = 60000)
     public void verificarItensAtrasados(){
         List<PedidoItem> itensEmPreparo =
-                pedidoItemRepository.findByStatusOrderByIdAsc(StatusItemPedido.EM_PREPARO);
+                pedidoItemRepository.buscarItensComProdutoEPedido(StatusItemPedido.EM_PREPARO);
 
         for (PedidoItem pedidoItem : itensEmPreparo){
             executorService.submit(() -> verificarItem(pedidoItem));
