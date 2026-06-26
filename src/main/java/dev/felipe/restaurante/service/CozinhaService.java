@@ -8,6 +8,7 @@ import dev.felipe.restaurante.repository.PedidoItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,7 @@ public class CozinhaService {
             throw new RegraNegocioException("somentes itens pendentes podem inicar preparo");
         }
         item.setStatus(StatusItemPedido.EM_PREPARO);
+        item.setDataIncioPreparo(LocalDateTime.now());
 
         PedidoItem salvo = pedidoItemRepository.save(item);
         return CozinhaItemResponse.fromEntity(salvo);
@@ -51,6 +53,7 @@ public class CozinhaService {
             throw new RegraNegocioException("somentes itens empreparo podem ficar pronto");
         }
         item.setStatus(StatusItemPedido.PRONTO);
+        item.setDataPronto(LocalDateTime.now());
 
         PedidoItem salvo = pedidoItemRepository.save(item);
         return CozinhaItemResponse.fromEntity(salvo);
@@ -63,6 +66,7 @@ public class CozinhaService {
             throw new RegraNegocioException("somentes itens prontos podem ser entregues");
         }
         item.setStatus(StatusItemPedido.ENTREGUE);
+        item.setDataEntregue(LocalDateTime.now());
 
         PedidoItem salvo = pedidoItemRepository.save(item);
         return CozinhaItemResponse.fromEntity(salvo);
