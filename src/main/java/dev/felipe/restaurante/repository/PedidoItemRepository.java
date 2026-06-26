@@ -21,7 +21,7 @@ public interface PedidoItemRepository extends JpaRepository<PedidoItem, Long> {
             FROM PedidoItem i
             JOIN FETCH i.produto
             JOIN FETCH i.pedido p
-            JOIN FETCH i.mesa
+            JOIN FETCH p.mesa
             WHERE i.status = :status
             ORDER BY i.id
             """
