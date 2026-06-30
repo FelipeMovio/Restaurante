@@ -1,9 +1,7 @@
 package dev.felipe.restaurante.controller;
 
-import dev.felipe.restaurante.dto.PedidoItemRequest;
-import dev.felipe.restaurante.dto.PedidoItemResponse;
-import dev.felipe.restaurante.dto.PedidoRequest;
-import dev.felipe.restaurante.dto.PedidoResponse;
+import dev.felipe.restaurante.dto.*;
+import dev.felipe.restaurante.service.PagamentoService;
 import dev.felipe.restaurante.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +17,7 @@ import java.util.List;
 public class PedidoController {
 
     private final PedidoService pedidoService;
+    private final PagamentoService pagamentoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,4 +45,10 @@ public class PedidoController {
     public List<PedidoItemResponse> listarItens(@PathVariable Long pedidoID){
         return pedidoService.listarItens(pedidoID);
     }
+
+    @PostMapping("/pedidos/{pedidoId}/pagar")
+    public void pagar(@PathVariable Long pedidoId, @RequestParam String formaPagamento){
+        pagamentoService.pagar(pedidoId,formaPagamento);
+    }
+
 }
