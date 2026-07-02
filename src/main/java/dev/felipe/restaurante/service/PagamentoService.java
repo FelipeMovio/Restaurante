@@ -1,6 +1,6 @@
 package dev.felipe.restaurante.service;
 
-import dev.felipe.restaurante.client.PagamentoClient;
+import dev.felipe.restaurante.controller.PagamentoController;
 import dev.felipe.restaurante.domain.entity.FechamentoConta;
 import dev.felipe.restaurante.domain.entity.Mesa;
 import dev.felipe.restaurante.domain.entity.Pagamento;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PagamentoService {
 
-    private final PagamentoClient pagamentoClient;
+    private final PagamentoController pagamentoController;
     private final FechamentoContaRepository fechamentoContaRepository;
     private final PedidoRepository pedidoRepository;
     private final MesaRepository mesaRepository;
@@ -37,7 +37,7 @@ public class PagamentoService {
         FechamentoConta fechamento = fechamentoContaRepository.findByPedidoId(pedidoId)
                 .orElseThrow(() -> new RegraNegocioException("fechamento indisponivel"));
 
-        PagamentoResponse response = pagamentoClient.processar(
+        PagamentoResponse response = pagamentoController.processar(
                 new PagamentoRequest(
                        fechamento.getTotal(),
                         formaPagamento
