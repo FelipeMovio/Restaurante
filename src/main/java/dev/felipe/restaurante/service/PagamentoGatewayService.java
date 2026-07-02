@@ -1,25 +1,19 @@
-package dev.felipe.restaurante.controller;
+package dev.felipe.restaurante.service;
 
 import dev.felipe.restaurante.dto.PagamentoRequest;
 import dev.felipe.restaurante.dto.PagamentoResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Random;
 
-@RestController
-@RequestMapping("/pagamentos")
-public class PagamentoController {
+@Service
+public class PagamentoGatewayService {
 
     private final Random random = new Random();
 
-    @PostMapping("/processar")
-    public PagamentoResponse processar(@RequestBody PagamentoRequest request) {
+    public PagamentoResponse processar(PagamentoRequest request) {
 
-        // Valores muito altos são recusados
         if (request.valor().compareTo(new BigDecimal("1000")) > 0) {
             return new PagamentoResponse(
                     "RECUSADO",
@@ -27,7 +21,6 @@ public class PagamentoController {
             );
         }
 
-        // Aprovação de aproximadamente 80%
         boolean aprovado = random.nextInt(10) < 8;
 
         if (aprovado) {

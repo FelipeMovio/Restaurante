@@ -1,5 +1,6 @@
 package dev.felipe.restaurante.controller;
 
+import dev.felipe.restaurante.domain.enums.FormaPagamento;
 import dev.felipe.restaurante.dto.*;
 import dev.felipe.restaurante.service.PagamentoService;
 import dev.felipe.restaurante.service.PedidoService;
@@ -47,7 +48,7 @@ public class PedidoController {
     }
 
     @PostMapping("/pedidos/{pedidoId}/pagar")
-    public void pagar(@PathVariable Long pedidoId, @RequestParam String formaPagamento){
+    public void pagar(@PathVariable Long pedidoId, @RequestParam FormaPagamento formaPagamento){
         pagamentoService.pagar(pedidoId,formaPagamento);
     }
 
